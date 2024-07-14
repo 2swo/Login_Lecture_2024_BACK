@@ -1,9 +1,4 @@
-// const http = require("http");
-// const app = http.createServer();
-
-// app.listen(3000, () => {
-//   console.log("https로 가동된 서버입니다");
-// });
+"use strict";
 
 const express = require("express"); // 다운로드받은 express를 가져옴.
 const app = express(); // express 모듈의 function을 사용하여 새로운 express 앱을 만들겠다고 선언.
@@ -14,7 +9,12 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+app.get("/login", (req, res) => {
+  //로그인 get 요청이 들어올 경우, 직접 가동 후 url을 통해 보여주기.
+  res.send("여기는 로그인 페이지입니다.");
+});
+
 app.listen(port, () => {
   // console.log로 이 app이 몇번 포트에서 실행되는지.
-  console.log(`Example app listening on port ${port}`);
+  console.log(`서버 가동 ${port}`);
 });
