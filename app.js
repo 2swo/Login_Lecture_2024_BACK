@@ -36,7 +36,7 @@ app.post("/register", (req, res) => {
   // 테스트의 어려움. 모든 로직이 한 파일에 있기 때문에, 버그가 발생했을 때 원인을 찾기 어렵습니다.
   const { id, pw } = req.body; // 컨트롤러딴
 
-  // + 사용자 존재 여부 확인 같은 비즈니스 로직 = 서비스딴
+  // + 사용자 존재 여부 확인 같은 비즈니스 로직 = 서비스로직
   const checkUserSql = "SELECT * FROM user WHERE id = ?;";
   db.query(checkUserSql, [id], (err, results) => {
     if (err) {
