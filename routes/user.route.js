@@ -2,7 +2,7 @@
 
 const express = require("express");
 const mysql = require("mysql"); // mysql 가져옴.
-const router = express.Router(); // route
+const userRouter = express.Router(); // route
 
 //db 연결 없이 더미데이터를가지고 테스트를 할지도 고민.
 const db = mysql.createPool({
@@ -48,4 +48,4 @@ router.post("/register", (req, res) => {
   });
 });
 
-module.exports = router; // export 해줘야 app.js에서 라우터 받아오기
+module.exports = userRouter; // export 해줘야 app.js에서 라우터 받아오기
