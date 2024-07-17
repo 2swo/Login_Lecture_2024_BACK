@@ -6,6 +6,7 @@ const app = express(); // express 모듈의 function을 사용하여 새로운 e
 const port = 3000; // port는 어플리케이션을 열 포트. 5000번 해도 되고 그럼. 이때 기본 port 설명을 할까말까.
 
 // route 분리 연결
+// 보다 명확한 분리를 사용하기 위해서, 명확한 폴더명, 파일명 중요.
 const userRouter = require("./routes/route.js");
 app.use("/user", userRouter); //미들웨어
 
