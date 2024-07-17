@@ -7,7 +7,7 @@ const port = 3000; // port는 어플리케이션을 열 포트. 5000번 해도 �
 
 // route 분리 연결
 // 보다 명확한 분리를 사용하기 위해서, 명확한 폴더명, 파일명 중요.
-const userRouter = require("./routes/route.js");
+const userRouter = require("./routes/user.route.js");
 app.use("/user", userRouter); //미들웨어
 
 //라우터를 분리할 경우의 장점
