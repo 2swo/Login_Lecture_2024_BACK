@@ -7,14 +7,14 @@ const userService = require("../services/user.service");
 // 컨트롤러의 역할
 // 클라이언트의 요청을 수신, 검증하고 서비스딴 호출(비즈니스 로직), 응답 반환
 
-const register = async (req, res) => {
+const login = async (req, res) => {
   const { id, pw } = req.body;
-  const response = await userService.register(id, pw);
+  const response = await userService.login(id, pw);
   return response;
 };
 
 //controller에서 export 해줘서, route딴에서 쓰기.
 module.exports = {
   // 이후에 로그인 api를 만들면서, 모듈을 묶어서 관리하는 방법도 소개하면서 변경될 예정
-  register,
+  login,
 };
