@@ -13,7 +13,9 @@ const db = mysql.createPool({
   database: "ex",
 });
 
-router.post("/register", (req, res) => {
+router.post("/register", register);
+
+const register = (req, res) => {
   // 라우트딴
   // 모듈을 나누기 전, 먼저 회원가입 API-POST를 app.js 파일 하나에 다 넣고, 하나씩 분리하면서 설명
   // 이렇게 길게 코드를 작성할 경우, 간단하고 적은 설정과 빠른 개발을 할 수는 있지만.
@@ -46,6 +48,6 @@ router.post("/register", (req, res) => {
       return res.status(200).json({ success: true, msg: "회원가입 성공" });
     });
   });
-});
+};
 
 module.exports = router; // export 해줘야 app.js에서 라우터 받아오기
