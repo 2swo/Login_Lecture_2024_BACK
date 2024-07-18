@@ -9,8 +9,16 @@ const userService = require("../services/user.service");
 
 const login = async (req, res) => {
   const { id, pw } = req.body;
+  if (!id || !pw) {
+    //id와 패스워드를 입력했는지 검증
+    return res
+      .status(400) //여기서 statuscode에 대한 간략한 설명
+      .json({ success: false, msg: "ID와 비밀번호를 입력하세요." });
+  }
   const response = await userService.login(id, pw);
-  return response;
+  if (response.success) {
+    return res.status(200).json(response);
+  }
 };
 
 //controller에서 export 해줘서, route딴에서 쓰기.

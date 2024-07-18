@@ -15,21 +15,13 @@ const users = {
 // 테스트의 어려움. 모든 로직이 한 파일에 있기 때문에, 버그가 발생했을 때 원인을 찾기 어렵습니다.
 
 const login = async (id, pw) => {
-  if (!id || !pw) {
-    //id와 패스워드를 입력했는지
-    return res
-      .status(400) //상태코드 간략한 설명
-      .json({ success: false, msg: "ID와 비밀번호를 입력하세요." });
-  }
   const userIndex = users.id.indexOf(id);
   // console.log(userIndex); //indexOf에 대한 간략한 설명 (배열에서 알맞은 값을 찾고 어떻게 반환하는지)
   if (userIndex === -1) {
-    return res.status(400).json({ success: false, msg: "ID가 틀렸습니다." });
+    return res.json({ success: false, msg: "ID가 틀렸습니다." });
   }
   if (users.pw[userIndex] !== pw) {
-    return res
-      .status(400)
-      .json({ success: false, msg: "비밀번호가 틀렸습니다." });
+    return res.json({ success: false, msg: "비밀번호가 틀렸습니다." });
   }
   return { success: true, msg: "로그인 성공" };
 };
