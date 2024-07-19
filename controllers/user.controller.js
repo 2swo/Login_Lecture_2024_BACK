@@ -1,23 +1,23 @@
 "use strict";
 
 const userService = require("../services/user.service");
-//컨트롤러를 분리할 경우의 장점
-//코드의 책임성 분리, 코드의 가독성 향상, 재사용성 향상
-
-// 컨트롤러의 역할
-// 클라이언트의 요청을 수신, 검증하고 서비스딴 호출(비즈니스 로직), 응답 반환
 
 const login = async (req, res) => {
   const { id, pw } = req.body;
+
+  // ID와 비밀번호 입력 검증
   if (!id || !pw) {
-    //id와 패스워드를 입력했는지 검증
     return res
-      .status(400) //여기서 statuscode에 대한 간략한 설명
+      .status(400) // 400: 잘못된 요청 (Bad Request)
       .json({ success: false, msg: "ID와 비밀번호를 입력하세요." });
   }
-  const response = await userService.login(id, pw);
+
+  const response = await userService.login(id, pw); // 변수명 변경 (result -> response)
+
   if (response.success) {
-    return res.status(200).json(response);
+    return res.status(200).json(response); // 200: 성공 (OK)
+  } else {
+    return res.status(400).json(response); // 400: 잘못된 요청 (Bad Request)
   }
 };
 
