@@ -4,6 +4,7 @@ const express = require("express"); // 다운로드받은 express를 가져옴.
 const bodyParser = require("body-parser"); // body-parser 모듈 가져옴.
 const app = express(); // express 모듈의 function을 사용하여 새로운 express 앱을 만들겠다고 선언.
 const port = 3000; // port는 어플리케이션을 열 포트. 5000번 해도 되고 그럼. 이때 기본 port 설명을 할까말까.
+app.use(express.json()); // JSON 요청 본문을 파싱하기 위해 express.json() 미들웨어 사용
 
 app.use(bodyParser.json()); // JSON 요청 본문 파싱 설정
 
