@@ -27,14 +27,15 @@ const login = async (req, res) => {
   }
 };
 
-const loginService = async (id, pw) => {
+const loginService = (id, pw) => {
   const userIndex = users.id.indexOf(id);
-  // console.log(userIndex); //indexOf에 대한 간략한 설명 (배열에서 알맞은 값을 찾고 어떻게 반환하는지)
+
+  // indexOf: 배열에서 주어진 값의 첫 번째 인덱스를 반환. 값이 없으면 -1 반환
   if (userIndex === -1) {
-    return res.json({ success: false, msg: "ID가 틀렸습니다." });
+    return { success: false, msg: "ID가 틀렸습니다." };
   }
   if (users.pw[userIndex] !== pw) {
-    return res.json({ success: false, msg: "비밀번호가 틀렸습니다." });
+    return { success: false, msg: "비밀번호가 틀렸습니다." };
   }
   return { success: true, msg: "로그인 성공" };
 };
