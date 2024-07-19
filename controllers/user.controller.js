@@ -1,6 +1,7 @@
 "use strict";
 
-const userService = require("../services/user.service");
+const UserService = require("../services/user.service");
+const userService = new UserService(); //user.service.js에서 UserService Class를 가져와 인스턴스 생성
 
 const login = async (req, res) => {
   const { id, pw } = req.body;
