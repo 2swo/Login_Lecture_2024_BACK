@@ -10,7 +10,7 @@ app.use(bodyParser.json()); // JSON 요청 본문 파싱 설정
 // route 분리 연결
 // 보다 명확한 분리를 사용하기 위해서, 명확한 폴더명, 파일명 중요.
 const userRouter = require("./routes/user.route.js");
-app.use("/user", userRouter); //미들웨어
+app.use("/auth", userRouter); //미들웨어
 
 //라우터를 분리할 경우의 장점
 // 협업의 효율성이 늘어남 (ex) - userRoute, boardRoute, 등등 각자가 맡은 작업의 Route딴을 분리
