@@ -5,6 +5,7 @@ const userService = new UserService(); //user.service.js에서 UserService Class
 
 const login = async (req, res) => {
   const { id, pw } = req.body;
+  // console.log(req.body);직접 어떻게 들어오는지 보여주기
 
   // ID와 비밀번호 입력 검증
   if (!id || !pw) {
