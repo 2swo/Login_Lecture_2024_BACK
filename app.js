@@ -7,44 +7,15 @@ const port = 3000; // port는 어플리케이션을 열 포트. 5000번 해도 �
 
 app.use(bodyParser.json()); // JSON 요청 본문 파싱 설정
 
-const users = {
-  //db 대신 user 데이터 예시
-  id: ["id1", "id2", "id3"],
-  pw: ["pw1", "pw2", "pw3"],
-};
+// route 분리 연결
+// 보다 명확한 분리를 사용하기 위해서, 명확한 폴더명, 파일명 중요.
+const userRouter = require("./routes/user.route.js");
+app.use("/auth", userRouter); //미들웨어
 
-app.post("/login", async (req, res) => {
-  const { id, pw } = req.body;
-
-  // ID와 비밀번호 입력 검증
-  if (!id || !pw) {
-    return res
-      .status(400) // 400: 잘못된 요청 (Bad Request)
-      .json({ success: false, msg: "ID와 비밀번호를 입력하세요." });
-  }
-
-  const response = await loginService(id, pw);
-
-  if (response.success) {
-    return res.status(200).json(response); // 200: 성공 (OK)
-  } else {
-    return res.status(400).json(response);
-  }
-});
-
-// 서비스 로직
-const loginService = (id, pw) => {
-  const userIndex = users.id.indexOf(id);
-
-  // indexOf: 배열에서 주어진 값의 첫 번째 인덱스를 반환. 값이 없으면 -1 반환
-  if (userIndex === -1) {
-    return { success: false, msg: "ID가 틀렸습니다." };
-  }
-  if (users.pw[userIndex] !== pw) {
-    return { success: false, msg: "비밀번호가 틀렸습니다." };
-  }
-  return { success: true, msg: "로그인 성공" };
-};
+//라우터를 분리할 경우의 장점
+// 협업의 효율성이 늘어남 (ex) - userRoute, boardRoute, 등등 각자가 맡은 작업의 Route딴을 분리
+// 기능별로 분리된 라우터는 독립적으로 관리가 가능함. 코드 중복을 줄일 수 있음. (이부분은 login하면서 한번더 설명가능할듯)
+// 코드의 가독성이 향상됨.
 
 app.listen(port, () => {
   // console.log로 이 app이 몇번 포트에서 실행되는지.
