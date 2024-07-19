@@ -1,6 +1,6 @@
 "user strict";
 
-const express = require("express");
+const express = require("express"); // 다운로드받은 express를 가져옴.
 const userRouter = express.Router(); // route
 
 userRouter.post("/login", async (req, res) => {
