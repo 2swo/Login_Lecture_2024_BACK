@@ -1,53 +1,38 @@
 "user strict";
 
 const express = require("express");
-const mysql = require("mysql"); // mysql 가져옴.
-const router = express.Router(); // route
+const userRouter = express.Router(); // route
 
-//db 연결 없이 더미데이터를가지고 테스트를 할지도 고민.
-const db = mysql.createPool({
-  // db 연결설정
-  host: "localhost",
-  user: "ex",
-  password: "ex",
-  database: "ex",
-});
+userRouter.post("/login", login);
 
-router.post("/register", register);
+const login = async (req, res) => {
+  const { id, pw } = req.body;
+  if (!id || !pw) {
+    //id와 패스워드를 입력했는지 검증
+    return res
+      .status(400) //여기서 statuscode에 대한 간략한 설명
+      .json({ success: false, msg: "ID와 비밀번호를 입력하세요." });
+  }
+  const response = await loginService(id, pw); // 변수명을 바꿀 필요 있을 것 같음.
 
-const register = (req, res) => {
-  // 라우트딴
-  // 모듈을 나누기 전, 먼저 회원가입 API-POST를 app.js 파일 하나에 다 넣고, 하나씩 분리하면서 설명
-  // 이렇게 길게 코드를 작성할 경우, 간단하고 적은 설정과 빠른 개발을 할 수는 있지만.
-  // 코드가 길어질수록 복잡해지고, 유지보수가 어렵습니다. 또한 코드의 재사용성이 떨어지고, 동일한 코드를 여러 곳에서 중복으로 사용할 가능성이 높아집니다.
-  // 테스트의 어려움. 모든 로직이 한 파일에 있기 때문에, 버그가 발생했을 때 원인을 찾기 어렵습니다.
-  const { id, pw } = req.body; // 컨트롤러딴
-
-  // + 사용자 존재 여부 확인 같은 비즈니스 로직 = 서비스로직
-  const checkUserSql = "SELECT * FROM user WHERE id = ?;";
-  db.query(checkUserSql, [id], (err, results) => {
-    if (err) {
-      console.error(err);
-      return res
-        .status(500)
-        .json({ success: false, msg: "DB 조회 중 에러 발생" });
+  const loginService = (id, pw) => {
+    const userIndex = users.id.indexOf(id);
+    // console.log(userIndex); //indexOf에 대한 간략한 설명 (배열에서 알맞은 값을 찾고 어떻게 반환하는지)
+    if (userIndex === -1) {
+      return res.json({ success: false, msg: "ID가 틀렸습니다." });
     }
-    if (results.length > 0) {
-      return res
-        .status(409)
-        .json({ success: false, msg: "이미 존재하는 사용자입니다." });
+    if (users.pw[userIndex] !== pw) {
+      return res.json({ success: false, msg: "비밀번호가 틀렸습니다." });
     }
+    return { success: true, msg: "로그인 성공" };
+  };
 
-    // 사용자 추가 로직 (레포지토리딴)
-    const sql = "INSERT INTO user (id, pw) VALUES (?,?);";
-    db.query(sql, [id, pw], (err) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ success: false, msg: "회원가입 에러" });
-      }
-      return res.status(200).json({ success: true, msg: "회원가입 성공" });
-    });
-  });
+  if (response.success) {
+    return res.status(200).json(response);
+  }
 };
 
-module.exports = router; // export 해줘야 app.js에서 라우터 받아오기
+module.exports = userRouter; // export 해줘야 app.js에서 라우터 받아오기
+
+//현재 고민중인것, index.js라는 route상위파일을 만들고, user.route.js파일은 하위파일로 만들어서, 각자의 route딴으로 넘기는것도 설명할가?
+//최적화할것 : route.js라는 route딴 상위파일에서, user.route.js 하위파일로 두게 한다. 모든 route는 route.js에서 받아오고, app.js에서는 route.js만 참조한다
