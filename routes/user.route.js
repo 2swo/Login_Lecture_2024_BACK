@@ -3,6 +3,12 @@
 const express = require("express"); // 다운로드받은 express를 가져옴.
 const userRouter = express.Router(); // route
 
+const users = {
+  //db 대신 user 데이터 예시
+  id: ["id1", "id2", "id3"],
+  pw: ["pw1", "pw2", "pw3"],
+};
+
 userRouter.post("/login", async (req, res) => {
   const { id, pw } = req.body;
 
