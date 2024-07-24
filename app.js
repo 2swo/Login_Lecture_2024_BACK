@@ -8,6 +8,8 @@ app.use(express.json()); // JSON 요청 본문을 파싱하기 위해 express.js
 
 app.use(bodyParser.json()); // JSON 요청 본문 파싱 설정
 
+app.use(bodyParser.json()); // JSON 요청 본문 파싱 설정
+
 // route 분리 연결
 // 보다 명확한 분리를 사용하기 위해서, 명확한 폴더명, 파일명 중요.
 

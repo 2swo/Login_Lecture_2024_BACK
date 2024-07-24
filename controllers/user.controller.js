@@ -1,12 +1,11 @@
 "use strict";
 
-
-const UserService = require("../services/user.service");
-const userService = new UserService(); //user.service.js에서 UserService Class를 가져와 인스턴스 생성
+const userService = require("../services/user.service.js");
 
 const login = async (req, res) => {
   const { id, pw } = req.body;
   // console.log(req.body);직접 어떻게 들어오는지 보여주기
+
 
   // ID와 비밀번호 입력 검증
   if (!id || !pw) {
@@ -15,8 +14,7 @@ const login = async (req, res) => {
       .json({ success: false, msg: "ID와 비밀번호를 입력하세요." });
   }
 
-  const response = await userService.login(id, pw); // 변수명 변경 (result -> response)
-
+  const response = await userService.loginService(id, pw); // 변수명 변경 (result -> response)
 
   if (response.success) {
     return res.status(200).json(response); // 200: 성공 (OK)
