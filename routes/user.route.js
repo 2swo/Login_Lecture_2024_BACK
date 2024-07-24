@@ -1,4 +1,4 @@
-"user strict";
+"use strict";
 
 const express = require("express");
 const userRouter = express.Router(); // route
