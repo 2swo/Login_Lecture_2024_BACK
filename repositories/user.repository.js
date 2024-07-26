@@ -6,21 +6,25 @@ const db = require("../config/db");
 //   pw: ["pw1", "pw2", "pw3"],
 // };
 
-const findUserById = (id) => {
-  // 클래스 인스턴스인 UserRepository에서 호출되는 메서드
-  const userIndex = users.id.indexOf(id);
+const findUserById = (id, callback) => {
+  // 데이터베이스에서 사용자 정보를 조회하는 쿼리
+  const query = "SELECT id, pw FROM users WHERE id = ?";
 
-  if (userIndex !== -1) {
-    return {
-      id: users.id[userIndex],
-      pw: users.pw[userIndex],
-    };
-  } else {
-    return undefined;
-  }
+  db.query(query, [id], (err, results) => {
+    if (err) {
+      console.error("Database query error:", err);
+      return callback(err);
+    }
+
+    if (results.length > 0) {
+      const user = results[0];
+      return callback(null, { id: user.id, pw: user.pw });
+    } else {
+      return callback(null, undefined);
+    }
+  });
 };
 
 module.exports = {
-  // 이후에 나머지 로그인 api를 만들면서, 모듈을 묶어서 관리하는 방법도 소개하면서 변경될 예정
   findUserById,
 };
