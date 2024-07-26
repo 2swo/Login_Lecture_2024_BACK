@@ -1,9 +1,10 @@
 "use strict";
 
-const users = {
-  id: ["id1", "id2", "id3"],
-  pw: ["pw1", "pw2", "pw3"],
-};
+const db = require("../config/db");
+// const users = {
+//   id: ["id1", "id2", "id3"],
+//   pw: ["pw1", "pw2", "pw3"],
+// };
 
 const findUserById = (id) => {
   // 클래스 인스턴스인 UserRepository에서 호출되는 메서드
